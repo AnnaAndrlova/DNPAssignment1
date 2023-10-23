@@ -6,42 +6,57 @@
 @inject IPostService postService
 @inject IUserService userService
 @inject NavigationManager navMgr
-@if (post == null!)
+@if (posts == null!)
 {
     <span>Loading..</span>
 }
 
-else{
-        <h3>@post.Title</h3>
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">@post.Title</h5>
-                <p class="card-text">@post.Context</p>
+else
+{
+    @foreach (var post in posts)
+    {
+        <div class="col-6">
+            <div class="card m-2">
+                <div class="card-header">
+                    @post.DateOfCreation.Date
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title text-primary text-uppercase">@post.Title</h5>
+                    <p class="card-text">
+                        <b>Author:</b> @post.Author.UserName
+                        <br>
+                        <b>Content:</b> @post.Context
+                    </p>
+
+                </div>
             </div>
         </div>
     }
 
 @code {
+
     [Parameter]
     public int Id { get; set; }
-   
-    private PostBasicDto post = null!;
+
+    private IEnumerable<Post>? posts;
+    //private PostBasicDto post = null!;
     private string msg = "";
-    
+
     protected override async Task OnInitializedAsync()
     {
         msg = "";
         try
         {
-            //PostBasicDto postData = await postService.GetByIdAsync(Id);
-            post = await postService.GetByIdAsync(Id);
-            //Console.WriteLine("------------------"+ post.Title);
-            
+    //PostBasicDto postData = await postService.GetByIdAsync(Id);
+            posts = await postService.GetByIdAsync(Id);
+    //Console.WriteLine("------------------"+ post.Title);
+
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
             msg = e.Message;
         }
-    }
-}
+    }   
+
+}}

@@ -1,4 +1,6 @@
-﻿namespace Domain;
+﻿using System.Collections;
+
+namespace Domain;
 
 
 public class PostBasicDto
@@ -16,4 +18,6 @@ public class PostBasicDto
         Title = title;
         Context = context;
     }
+
+    
 }
