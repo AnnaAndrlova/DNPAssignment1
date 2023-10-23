@@ -4,46 +4,53 @@
 @using HttpClients.ClientInterfaces
 @inject IPostService postService
 <h3 style="text-align: center">Overview of all posts</h3>
+<AuthorizeView>
+    <Authorized>
+       @if (!string.IsNullOrEmpty(msg))
+       {
+           <div>
+               <span>@msg</span>
+           </div>
+       }
+       
+       @if (posts == null)
+       {
+           <span>Loading..</span>
+       }
+       else if (!posts.Any())
+       {
+           <span>No posts to be found</span>
+       }
+       else
+       {
+           <div class="container">
+               <div class="row">
+                   @foreach (var post in posts)
+                   {
+                       <div class="col-6">
+                           <div class="card m-2">
+                               <div class="card-header">
+                                   @post.DateOfCreation.Date
+                               </div>
+                               <div class="card-body">
+                                   <h5 class="card-title text-primary text-uppercase">@post.Title</h5>
+                                   <p class="card-text">
+                                       <b>Author:</b> @post.Author.UserName
+                                   </p>
+                                   <a @onclick="@(() => navMgr.NavigateTo($"/PostDetailPage/{post.Id}"))" class="btn btn-primary">Read more</a>
+                               </div>
+                           </div>
+                       </div>
+                   }
+               </div>
+           </div>
+       }
 
-@if (!string.IsNullOrEmpty(msg))
-{
-    <div>
-        <span>@msg</span>
-    </div>
-}
-
-@if (posts == null)
-{
-    <span>Loading..</span>
-}
-else if (!posts.Any())
-{
-    <span>No posts to be found</span>
-}
-else
-{
-    <div class="container">
-        <div class="row">
-            @foreach (var post in posts)
-            {
-                <div class="col-6">
-                    <div class="card m-2">
-                        <div class="card-header">
-                            @post.DateOfCreation.Date
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title text-primary text-uppercase">@post.Title</h5>
-                            <p class="card-text">
-                                <b>Author:</b> @post.Author.UserName
-                            </p>
-                            <a @onclick="@(() => navMgr.NavigateTo($"/PostDetailPage/{post.Id}"))" class="btn btn-primary">Read more</a>
-                        </div>
-                    </div>
-                </div>
-            }
-        </div>
-    </div>
-}
+    </Authorized>
+    <NotAuthorized>
+        <p>Please Log in first</p>
+    </NotAuthorized>
+</AuthorizeView>
 
 @code {
     private IEnumerable<Post>? posts;

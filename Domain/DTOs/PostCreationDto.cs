@@ -2,12 +2,12 @@
 
 public class PostCreationDto
 {
-    public PostCreationDto(int authorId, string title, string context)
+    public PostCreationDto(int authorId, string title, string context, DateTime dateOfCreation)
     {
         AuthorId = authorId;
         Title = title;
         Context = context;
-        DateOfCreation = DateTime.Now;
+        DateOfCreation = dateOfCreation;
     }
 
     public int AuthorId { get; }

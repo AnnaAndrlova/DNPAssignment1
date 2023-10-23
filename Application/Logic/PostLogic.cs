@@ -21,7 +21,7 @@ public class PostLogic : IPostLogic
         if (user == null) throw new Exception($"User with id {dto.AuthorId} was not found.");
 
         ValidatePost(dto);
-        Post todo = new Post(user, dto.Title, dto.Context);
+        Post todo = new Post(user, dto.Title, dto.Context, DateTime.Now.Date);
         Post created = await postDao.CreateAsync(todo);
         return created;
     }

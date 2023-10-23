@@ -1,46 +1,91 @@
 ﻿@page "/CreatePost"
 @using HttpClients.ClientInterfaces
 @using Domain
+@using System.Security.Claims
+@using System.Collections.Immutable
 @inject IUserService userService
 @inject IPostService postService
 @inject NavigationManager navMgr
-<div class="card">
-   
-        <h3>Create Post</h3>
-        <div class="form-group field">
-            <label>Title:</label>
-            <input type="text" @bind="postTitle"/>
-        </div>
+<AuthorizeView>
+    <Authorized>
+     <div class="card">
+         
+     
+         <h3>Create Post</h3>
+         <div class="form-group field">
+             <label>Title:</label>
+             <input type="text" @bind="postTitle"/>
+         </div>
+     
+         <div class="form-group field">
+             <label>Context:</label>
+             <input type="text" @bind="postContext"/>
+         </div>
+         
         
-        <div class="form-group field">
-            <label>Context:</label>
-            <input type="text" @bind="postContext"/>
-        </div>
-        
-        <div class="button-row">
-            @if (!string.IsNullOrEmpty(msg))
-            {
-                <label style="color: red">@msg</label>
-            }
-            <button @onclick="Create" class="acceptbtn">Create</button>
-        </div>
-    
-</div>
+         
+         
+     
+         <div class="button-row">
+             @if (!string.IsNullOrEmpty(msg))
+             {
+                 <label style="color: red">@msg</label>
+             }
+             <button @onclick="Create" class="acceptbtn">Create</button>
+         </div>
+     
+     </div>
+    </Authorized>
+    <NotAuthorized>
+          <p>Please Log in first</p>
+    </NotAuthorized>
+</AuthorizeView>
+
 
 @code {
+    [CascadingParameter]
+    public Task<AuthenticationState> AuthState { get; set; } = null!;
+    
+
+    private string? postAuthorString;
     private int? postAuthor;
+
+    protected override async Task OnInitializedAsync()
+    {
+        
+        AuthenticationState authState = await AuthState;
+        ClaimsPrincipal user = authState.User;
+       // IEnumerable<Claim>? userClaims = user.Claims;
+
+        postAuthorString = user.Identity.Name;
+        
+        IEnumerable<User> users = await userService.GetUsers();
+        
+        foreach (var userr in users)
+        {
+            if (userr.UserName == postAuthorString)
+            {
+                postAuthor = userr.Id;
+            }
+        }
+        
+        
+    }
+
+   
     private string postTitle = "";
     private string postContext = "";
 
     private string msg = "";
-
-   
+    
 
     private async Task Create()
     {
-        //TODO change after implementing a log in
+        
         msg = "";
-        postAuthor = 1;
+        
+        
+        
         if (postAuthor == null)
         {
             msg = "You must be logged in";
@@ -59,7 +104,7 @@
 
         try
         {
-            PostCreationDto dto = new((int)postAuthor, postTitle, postContext);
+            PostCreationDto dto = new((int)postAuthor, postTitle, postContext, DateTime.Now);
             await postService.CreateAsync(dto);
             navMgr.NavigateTo("/");
         }

@@ -2,12 +2,12 @@
 
 public class Post
 {
-    public Post(User author, string title, string context)
+    public Post(User author, string title, string context, DateTime dateOfCreation)
     {
         Author = author;
         Title = title;
         Context = context;
-        DateOfCreation = DateTime.Now;
+        DateOfCreation = dateOfCreation;
     }
 
     public int Id { get; set; }
