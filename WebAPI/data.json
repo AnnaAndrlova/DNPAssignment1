@@ -1,1 +1,43 @@
-{"Users":[{"Id":1,"UserName":"Anna","Password":"bobek"},{"Id":2,"UserName":"Bob","Password":"bobek"},{"Id":3,"UserName":"dfdff","Password":"string"}],"Posts":[{"Id":1,"Author":{"Id":1,"UserName":"Anna","Password":"bobek"},"Title":"hello","Context":"I am gay","DateOfCreation":"2023-10-02T14:40:14.7047166+02:00"},{"Id":2,"Author":{"Id":2,"UserName":"Bob","Password":"bobek"},"Title":"hi there","Context":"im mark","DateOfCreation":"2023-10-02T14:40:14.7054435+02:00"}]}
+{
+  "Users": [
+    {
+      "Id": 1,
+      "UserName": "Anna",
+      "Password": "bobek"
+    },
+    {
+      "Id": 2,
+      "UserName": "Bob",
+      "Password": "bobek"
+    },
+    {
+      "Id": 3,
+      "UserName": "dfdff",
+      "Password": "string"
+    }
+  ],
+  "Posts": [
+    {
+      "Id": 1,
+      "Author": {
+        "Id": 1,
+        "UserName": "Anna",
+        "Password": "bobek"
+      },
+      "Title": "hello",
+      "Context": "I am anna",
+      "DateOfCreation": "2023-10-02T14:40:14.7047166+02:00"
+    },
+    {
+      "Id": 2,
+      "Author": {
+        "Id": 2,
+        "UserName": "Bob",
+        "Password": "bobek"
+      },
+      "Title": "hi there",
+      "Context": "im mark",
+      "DateOfCreation": "2023-10-02T14:40:14.7054435+02:00"
+    }
+  ]
+}

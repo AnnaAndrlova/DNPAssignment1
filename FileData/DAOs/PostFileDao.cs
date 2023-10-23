@@ -44,6 +44,11 @@ public class PostFileDao: IPostDao
             result = result.Where(p => p.Author.Id == searchParams.UserId);
         }
         
+        if (searchParams.PostId != null)
+        {
+            result = result.Where(p => p.Id == searchParams.PostId);
+        }
+        
 
         if (!string.IsNullOrEmpty(searchParams.TitleContains))
         {
