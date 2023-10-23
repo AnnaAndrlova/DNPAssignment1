@@ -56,8 +56,7 @@ public class PostHttpClient: IPostService
 
         PostBasicDto post = JsonSerializer.Deserialize<PostBasicDto>(content, new JsonSerializerOptions
             {
-                PropertyNameCaseInsensitive = true,
-                NumberHandling = JsonNumberHandling.AllowReadingFromString 
+                PropertyNameCaseInsensitive = false
             })!;
         return post;
     }

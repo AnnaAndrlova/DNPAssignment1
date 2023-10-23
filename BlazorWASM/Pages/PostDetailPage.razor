@@ -6,17 +6,17 @@
 @inject IPostService postService
 @inject IUserService userService
 @inject NavigationManager navMgr
-@if (dto == null!)
+@if (post == null!)
 {
     <span>Loading..</span>
 }
 
 else{
-        <h3>@dto.Title</h3>
+        <h3>@post.Title</h3>
         <div class="card" style="width: 18rem;">
             <div class="card-body">
-                <h5 class="card-title">@dto.Title</h5>
-                <p class="card-text">@dto.Context</p>
+                <h5 class="card-title">@post.Title</h5>
+                <p class="card-text">@post.Context</p>
             </div>
         </div>
     }
@@ -24,8 +24,8 @@ else{
 @code {
     [Parameter]
     public int Id { get; set; }
-    private PostUpdateDto dto = null!;
-    //private PostBasicDto post = null!;
+   
+    private PostBasicDto post = null!;
     private string msg = "";
     
     protected override async Task OnInitializedAsync()
@@ -33,13 +33,8 @@ else{
         msg = "";
         try
         {
-            PostBasicDto postData = await postService.GetByIdAsync(Id);
-            dto = new(Id)
-            {
-                Title = postData.Title,
-               Context = postData.Context
-            };
-            //post = await postService.GetByIdAsync(Id);
+            //PostBasicDto postData = await postService.GetByIdAsync(Id);
+            post = await postService.GetByIdAsync(Id);
             //Console.WriteLine("------------------"+ post.Title);
             
         }
