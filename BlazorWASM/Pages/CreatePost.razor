@@ -1,0 +1,72 @@
+﻿@page "/CreatePost"
+@using HttpClients.ClientInterfaces
+@using Domain
+@inject IUserService userService
+@inject IPostService postService
+@inject NavigationManager navMgr
+<div class="card">
+   
+        <h3>Create Post</h3>
+        <div class="form-group field">
+            <label>Title:</label>
+            <input type="text" @bind="postTitle"/>
+        </div>
+        
+        <div class="form-group field">
+            <label>Context:</label>
+            <input type="text" @bind="postContext"/>
+        </div>
+        
+        <div class="button-row">
+            @if (!string.IsNullOrEmpty(msg))
+            {
+                <label style="color: red">@msg</label>
+            }
+            <button @onclick="Create" class="acceptbtn">Create</button>
+        </div>
+    
+</div>
+
+@code {
+    private int? postAuthor;
+    private string postTitle = "";
+    private string postContext = "";
+
+    private string msg = "";
+
+   
+
+    private async Task Create()
+    {
+        //TODO change after implementing a log in
+        msg = "";
+        postAuthor = 1;
+        if (postAuthor == null)
+        {
+            msg = "You must be logged in";
+            return;
+        }
+        if (string.IsNullOrEmpty(postTitle))
+        {
+            msg = "Title cannot be empty!";
+            return;
+        }
+        if (string.IsNullOrEmpty(postContext))
+        {
+            msg = "Context cannot be empty!";
+            return;
+        }
+
+        try
+        {
+            PostCreationDto dto = new((int)postAuthor, postTitle, postContext);
+            await postService.CreateAsync(dto);
+            navMgr.NavigateTo("/");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
+}

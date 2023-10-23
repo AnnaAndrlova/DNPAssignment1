@@ -14,6 +14,16 @@
       "Id": 3,
       "UserName": "dfdff",
       "Password": "string"
+    },
+    {
+      "Id": 4,
+      "UserName": "dfghjkl\u016F",
+      "Password": "fghjkl\u016F"
+    },
+    {
+      "Id": 5,
+      "UserName": "fghjkl",
+      "Password": "dfghj"
     }
   ],
   "Posts": [
@@ -26,7 +36,7 @@
       },
       "Title": "hello",
       "Context": "I am anna",
-      "DateOfCreation": "2023-10-02T14:40:14.7047166+02:00"
+      "DateOfCreation": "2023-10-23T13:37:35.3273002+02:00"
     },
     {
       "Id": 2,
@@ -37,7 +47,29 @@
       },
       "Title": "hi there",
       "Context": "im mark",
-      "DateOfCreation": "2023-10-02T14:40:14.7054435+02:00"
+      "DateOfCreation": "2023-10-23T13:37:35.3273108+02:00"
+    },
+    {
+      "Id": 3,
+      "Author": {
+        "Id": 1,
+        "UserName": "Anna",
+        "Password": "bobek"
+      },
+      "Title": "Girrafe in the zoo",
+      "Context": "amazing zooo",
+      "DateOfCreation": "2023-10-23T13:37:35.3273145+02:00"
+    },
+    {
+      "Id": 4,
+      "Author": {
+        "Id": 1,
+        "UserName": "Anna",
+        "Password": "bobek"
+      },
+      "Title": "fs",
+      "Context": "sfd",
+      "DateOfCreation": "2023-10-23T13:37:35.3276458+02:00"
     }
   ]
 }

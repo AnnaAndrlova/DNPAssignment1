@@ -1,0 +1,52 @@
+﻿@page "/PostDetailPage/{id:int}"
+@using Domain
+
+@using HttpClients.ClientInterfaces
+@using Microsoft.AspNetCore.Components
+@inject IPostService postService
+@inject IUserService userService
+@inject NavigationManager navMgr
+@if (dto == null!)
+{
+    <span>Loading..</span>
+}
+
+else{
+        <h3>@dto.Title</h3>
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">@dto.Title</h5>
+                <p class="card-text">@dto.Context</p>
+            </div>
+        </div>
+    }
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+    private PostUpdateDto dto = null!;
+    //private PostBasicDto post = null!;
+    private string msg = "";
+    
+    protected override async Task OnInitializedAsync()
+    {
+        msg = "";
+        try
+        {
+            PostBasicDto postData = await postService.GetByIdAsync(Id);
+            dto = new(Id)
+            {
+                Title = postData.Title,
+               Context = postData.Context
+            };
+            //post = await postService.GetByIdAsync(Id);
+            //Console.WriteLine("------------------"+ post.Title);
+            
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
+}
