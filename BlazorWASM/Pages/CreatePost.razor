@@ -52,22 +52,32 @@
 
     protected override async Task OnInitializedAsync()
     {
-        
-        AuthenticationState authState = await AuthState;
-        ClaimsPrincipal user = authState.User;
-       // IEnumerable<Claim>? userClaims = user.Claims;
-
-        postAuthorString = user.Identity.Name;
-        
-        IEnumerable<User> users = await userService.GetUsers();
-        
-        foreach (var userr in users)
+        try
         {
-            if (userr.UserName == postAuthorString)
+            AuthenticationState authState = await AuthState;
+            ClaimsPrincipal user = authState.User;
+
+            postAuthorString = user.Identity.Name;
+        
+            IEnumerable<User> users = await userService.GetUsers();
+        
+            foreach (var userr in users)
             {
-                postAuthor = userr.Id;
+                if (userr.UserName == postAuthorString)
+                {
+                    postAuthor = userr.Id;
+                }
             }
         }
+        catch (Exception e)
+        {
+            //something
+        }
+      
+            
+        
+        
+        
         
         
     }
