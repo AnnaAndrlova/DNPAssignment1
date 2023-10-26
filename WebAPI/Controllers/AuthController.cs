@@ -1,8 +1,9 @@
-﻿﻿using System.IdentityModel.Tokens.Jwt;
+﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
  using BlazorWASM.Services;
  using Domain;
+ using HttpClients.ClientInterfaces;
  using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
@@ -15,6 +16,7 @@ public class AuthController : ControllerBase
 {
     private readonly IConfiguration config;
     private readonly IAuthService authService;
+   
 
     public AuthController(IConfiguration config, IAuthService authService)
     {
@@ -34,6 +36,7 @@ public class AuthController : ControllerBase
     {
         try
         {
+            
             User user = await authService.ValidateUser(userLoginDto.UserName, userLoginDto.Password);
             string token = GenerateJwt(user);
         

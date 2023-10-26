@@ -1,8 +1,11 @@
 ﻿@page "/Login"
 @using BlazorWasm.Services
 @using BlazorWASM.Services
+@using Domain
+@using HttpClients.ClientInterfaces
 @inject IAuthService authService
 @inject NavigationManager navMgr
+@inject IUserService userService;
 <AuthorizeView>
     <NotAuthorized>
         <div class="card">
@@ -45,6 +48,7 @@
         try
         {
             await authService.LoginAsync(userName, password);
+            //IEnumerable<User> users = await userService.GetUsers();
             navMgr.NavigateTo("/");
         }
         catch (Exception e)

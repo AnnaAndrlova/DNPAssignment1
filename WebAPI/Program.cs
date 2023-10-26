@@ -5,6 +5,8 @@ using Application.LogicInterfaces;
 using BlazorWASM.Services;
 using FileData;
 using FileData.DAOs;
+using HttpClients.ClientInterfaces;
+using HttpClients.Implementations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Shared.Auth;

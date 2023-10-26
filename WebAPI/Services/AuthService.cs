@@ -30,17 +30,26 @@ public class AuthService: IAuthService
         
     };
     //TODO add users 
-   /* private static IUserService userService;
-    
-    private Task<IEnumerable<User>> userss = userService.GetUsers();
-    private List<User> users;*/
-    
-    
+   private IUserService userService;
+   
     
 
-    public Task<User> ValidateUser(string username, string password)
+    /*public AuthService(IUserService userService)
     {
-        User? existingUser = users.FirstOrDefault(u => 
+        this.userService = userService;
+        
+    }
+
+    private async Task<IEnumerable<User>> getUsers()
+    {
+        IEnumerable < User > users = await userService.GetUsers();
+        return users;
+    }*/
+    
+
+    /*public async Task<User> ValidateUser(string username, string password)
+    {
+        User? existingUser =  (await getUsers()).FirstOrDefault(u => 
             u.UserName.Equals(username, StringComparison.OrdinalIgnoreCase));
         
         if (existingUser == null)
@@ -53,7 +62,24 @@ public class AuthService: IAuthService
             throw new Exception("Password mismatch");
         }
 
-        return Task.FromResult(existingUser);
+        return existingUser;
+    }*/
+    public async Task<User> ValidateUser(string username, string password)
+    {
+        User? existingUser =  users.FirstOrDefault(u => 
+            u.UserName.Equals(username, StringComparison.OrdinalIgnoreCase));
+        
+        if (existingUser == null)
+        {
+            throw new Exception("User not found");
+        }
+
+        if (!existingUser.Password.Equals(password))
+        {
+            throw new Exception("Password mismatch");
+        }
+
+        return existingUser;
     }
 
     public Task RegisterUser(User user)
