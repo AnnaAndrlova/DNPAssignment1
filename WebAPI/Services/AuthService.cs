@@ -18,7 +18,7 @@ public class AuthService: IAuthService
 */
     
 
-    private readonly  IList<User> users = new List<User>
+   /* private readonly  IList<User> users = new List<User>
     {
         new User
         {
@@ -28,13 +28,13 @@ public class AuthService: IAuthService
         },
         
         
-    };
+    };*/
     //TODO add users 
    private IUserService userService;
    
     
 
-    /*public AuthService(IUserService userService)
+    public AuthService(IUserService userService)
     {
         this.userService = userService;
         
@@ -44,10 +44,10 @@ public class AuthService: IAuthService
     {
         IEnumerable < User > users = await userService.GetUsers();
         return users;
-    }*/
+    }
     
 
-    /*public async Task<User> ValidateUser(string username, string password)
+    public async Task<User> ValidateUser(string username, string password)
     {
         User? existingUser =  (await getUsers()).FirstOrDefault(u => 
             u.UserName.Equals(username, StringComparison.OrdinalIgnoreCase));
@@ -63,8 +63,8 @@ public class AuthService: IAuthService
         }
 
         return existingUser;
-    }*/
-    public async Task<User> ValidateUser(string username, string password)
+    }
+    /*public async Task<User> ValidateUser(string username, string password)
     {
         User? existingUser =  users.FirstOrDefault(u => 
             u.UserName.Equals(username, StringComparison.OrdinalIgnoreCase));
@@ -81,7 +81,7 @@ public class AuthService: IAuthService
 
         return existingUser;
     }
-
+*/
     public Task RegisterUser(User user)
     {
 
